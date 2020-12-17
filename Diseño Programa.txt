@@ -1,0 +1,12 @@
+Autores: Oriol Holguin / Alex Guirao 
+
+Descripcion: Juego de Sudoku simplificado a 4x4 (con posibilidad de ser 9x9). En principio
+no crearemos el algoritmo de la creación de sudokus aleatoriamente para que el usuario
+pueda jugar. Primero crearemos un sudoku predefinido.
+
+Clases: 
+
+SudokuGame (main)
+Teclat
+Time
+Text
