@@ -7,6 +7,31 @@ pueda jugar. Primero crearemos un sudoku predefinido.
 Clases: 
 
 SudokuGame (main)
-Teclat
+Input
 Time
 Text
+GameManager
+Board
+Player
+
+Metodos:
+
+Bienvenida del juego
+Tutorial del juego
+
+Bucle ----------------------
+Pedir datos al jugador
+Mostrar tablero
+Introduccion jugada
+Comprobacion estado tablero (Mostrar mensaje estado)
+---------------------- Bucle
+
+Mostrar tiempo juego*
+Preguntar nueva partida || Despedida
+
+(Creacion de tablero aleatorio*)
+
+Objetivos Extras:
+
+Cuanto tiempo has tardado en resolverlo
+Estadisticas
