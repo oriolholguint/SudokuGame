@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Input 
 {
 	
-	public char getRow()
+	public char getChar()
 	{
 		String preLetter;
 		char letter = 0;
@@ -29,5 +29,14 @@ public class Input
 		return letter;
 	}
 	
+	public int getInt()
+	{
+		int number;
+		
+		Scanner sc = new Scanner(System.in);
+		number = sc.nextInt();
+				
+		return number;
+	}
 	
 }
