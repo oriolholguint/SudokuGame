@@ -1,6 +1,7 @@
 package sudokugame;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -51,16 +52,21 @@ public class Input
     
     public static String getBoardPos()
     {
-        String positionBoard;
+        String boardPos;
+        String patternBoardPos = ("[a-dA-D][1-4]"); 
         
         do
         {
             Scanner sc = new Scanner(System.in);
-            positionBoard = sc.nextLine();    
+            boardPos = sc.nextLine();    
+            if (!(boardPos.matches(patternBoardPos)))
+            {
+                System.out.println("Esa posición no existe, introduce una correcta");
+            }
         }
-        while(!(positionBoard.length() == 2)); // Si no tiene dos caracteres no sale
+        while(!(boardPos.matches(patternBoardPos))); // Si no cumple el pattern no sale
 
-        return positionBoard;
+        return boardPos;
     }
-	
+    
 }
