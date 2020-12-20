@@ -17,21 +17,22 @@ public class Test
         int boardPos [][] = new int [4][4];
         boolean repeat;
         int col, fila;
-        int randomNumber = 0;
+        int randomNumber;
         boolean repeatValue = false;
         
         for (int i = 0; i < CANT_CASILLAS; i++)
         {    
+            col = (int) (Math.random() * 4);
+            fila = (int) (Math.random() * 4);
+            int res = Integer.valueOf(String.valueOf(fila + String.valueOf(col)));
             do
             {
                 //System.out.println(res);
-                col = (int) (Math.random() * 4);
-                fila = (int) (Math.random() * 4);
-                int res = Integer.valueOf(String.valueOf(fila + String.valueOf(col)));
+                
                 repeat = false;
                 if (boardPos[fila][col] == 0)
                 {
-                    while (repeatValue)
+                    while (!repeatValue)
                     {
                         switch (res)
                         {
