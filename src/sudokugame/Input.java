@@ -48,5 +48,19 @@ public class Input
 
         return word;            
     }
+    
+    public static String getBoardPos()
+    {
+        String positionBoard;
+        
+        do
+        {
+            Scanner sc = new Scanner(System.in);
+            positionBoard = sc.nextLine();    
+        }
+        while(!(positionBoard.length() == 2)); // Si no tiene dos caracteres no sale
+
+        return positionBoard;
+    }
 	
 }
