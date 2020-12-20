@@ -7,12 +7,19 @@ public class SudokuGame
 {
     public static void main(String[] args) 
     {
+        /*
         //Prueba del desarrollo de juego.
         do{
         Board.drawBoard();
         Board.setBoardPosValue();
         }while(!GameManager.getIsGameFinish());
-
+        */
+        
+        //Prueba para generar tablero aleatorio
+        do{
+        Board.generateRandomValue();
+        Board.drawBoard();
+        }while(!GameManager.getIsGameFinish());
 
     }
 }

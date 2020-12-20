@@ -126,5 +126,54 @@ public class Board
         
          System.out.println(" +-------+-------+");  //Dibuja linea de fin del tablero.
     }
+    
+    //Busca un número concreto en una fila del tablero y retorna si aparece.
+    public static boolean getValueRow(int _value, int _rowPos)
+    {
+        boolean isSet=false;
+        
+        for (int i = 0; i < BOARD_HEIGHT; i++)
+        {
+            if (boardPos[_rowPos][i]==_value)
+            {
+              isSet=true;  
+            }
+        }
+        return isSet;
+    }
+    
+     //Busca un número concreto en una fila del tablero y retorna si aparece.
+    public static boolean getValueColumn(int _value, int _colPos)
+    {
+        boolean isSet=false;
+        
+        for (int i = 0; i < BOARD_HEIGHT; i++)
+        {
+            if (boardPos[i][_colPos]==_value)
+            {
+              isSet=true;  
+            }
+        }
+        return isSet;
+    }
+    
+    public static void generateRandomValue()
+    {
+        int value;
+        int col;
+        int row;
+        
+        do{
+            row = (int) (Math.random() * 4);
+            col = (int) (Math.random() * 4);
+            
+        }while(boardPos[col][row]!=0);
+        
+        do{
+            value = (int)(Math.random() * 4 + 1);
+        }while(getValueRow(value, row) || getValueColumn(value, col));
+        
+        boardPos[row][col]=value;
+    }
 }
 
