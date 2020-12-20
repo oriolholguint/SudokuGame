@@ -126,3 +126,4 @@ public class Board
          System.out.println(" +-------+-------+");  //Dibuja linea de fin del tablero.
     }
 }
+
