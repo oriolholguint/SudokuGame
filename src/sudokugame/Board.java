@@ -63,17 +63,13 @@ public class Board
         //Asigna el valor de la columna.
         switch (_boardPos.charAt(1))
         {
-            case 'A':
-            case 'a':   columnIndex=0;
+            case '1':   columnIndex=0;
                 break;
-            case 'B':
-            case 'b':   columnIndex=1;
+            case '2':   columnIndex=1;
                 break;
-            case 'C':
-            case 'c':   columnIndex=2;
+            case '3':   columnIndex=2;
                 break;
-            case 'D':
-            case 'd':   columnIndex=3;
+            case '4':   columnIndex=3;
                 break;
         }
         
