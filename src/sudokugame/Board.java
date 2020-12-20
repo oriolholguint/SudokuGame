@@ -127,22 +127,32 @@ public class Board
          System.out.println(" +-------+-------+");  //Dibuja linea de fin del tablero.
     }
     
-    //Busca un número concreto en una fila del tablero y retorna si aparece.
+    /**
+     * Busca un número concreto en una fila del tablero y retorna si aparece.
+     * @param _value
+     * @param _rowPos
+     * @return isSet (True si el número se encuentra en la fila seleccionada.)
+     */
     public static boolean getValueRow(int _value, int _rowPos)
     {
         boolean isSet=false;
         
         for (int i = 0; i < BOARD_HEIGHT; i++)
         {
-            if (boardPos[_rowPos][i]==_value)
+            if (boardPos[_rowPos][i]==_value)   //Si el valor de la posición actual es igual al valor a revisar
             {
-              isSet=true;  
+              isSet=true;  //Ha encontrado el valor en la fila seleccionada.
             }
         }
         return isSet;
     }
     
-     //Busca un número concreto en una fila del tablero y retorna si aparece.
+    /**
+     * Busca un número concreto en una fila del tablero y retorna si aparece.
+     * @param _value
+     * @param _colPos
+     * @return isSet (True si el número se encuenta en la columna seleccionada)
+     */
     public static boolean getValueColumn(int _value, int _colPos)
     {
         boolean isSet=false;
@@ -151,7 +161,7 @@ public class Board
         {
             if (boardPos[i][_colPos]==_value)
             {
-              isSet=true;  
+              isSet=true;  //Ha encontrado el valor en la columna seleccionada.
             }
         }
         return isSet;
@@ -159,21 +169,21 @@ public class Board
     
     public static void generateRandomValue()
     {
-        int value;
-        int col;
-        int row;
+        int value;  //Valor a escribir en la casilla.
+        int col;    //Índice de la columna.
+        int row;    //Índice de la fila.
         
-        do{
+        do{ //Genera un número aleatorio para el índice de la fila y la columna.
             row = (int) (Math.random() * 4);
             col = (int) (Math.random() * 4);
             
-        }while(boardPos[col][row]!=0);
+        }while(boardPos[row][col]!=0);  //Mientras no haya ningún valor ya asignado a esa casilla.
         
-        do{
+        do{ //Genera un valor para escribir en la casilla.
             value = (int)(Math.random() * 4 + 1);
-        }while(getValueRow(value, row) || getValueColumn(value, col));
+        }while(getValueRow(value, row) || getValueColumn(value, col));  //Mientras en la fila o la columna no se encuentre el mismo valor.
         
-        boardPos[row][col]=value;
+        boardPos[row][col]=value;   //Asigna el valor a la casilla.
     }
 }
 
