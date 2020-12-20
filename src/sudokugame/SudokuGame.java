@@ -10,8 +10,7 @@ public class SudokuGame
         //Prueba del desarrollo de juego.
         do{
         Board.drawBoard();
-        System.out.println("Introduce tu tirada:");
-        Board.setBoardPosValue(Input.getBoardPos(),Input.getInt());
+        Board.setBoardPosValue();
         }while(!GameManager.getIsGameFinish());
 
 

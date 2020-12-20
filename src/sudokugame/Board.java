@@ -34,17 +34,19 @@ public class Board
     
     /**
      * Da valor numérico a una posición del tablero escogida por el usuario.
-     * @param _boardPos Posición de la casilla en formato (A1) 
-     * @param _value Valor de la casilla.
      */
-    public static void setBoardPosValue(String _boardPos, int _value)
+    public static void setBoardPosValue()
     {
+        String inputPos;
         int rowIndex=0; //Identificador de fila.
         int columnIndex=0; //Identificador de columna.
-        int value;  //Valor numérico de la casilla.
+        int posValue;  //Valor numérico de la casilla.
+        
+        System.out.println("Introduce una posición del tablero: ");
+        inputPos = Input.getBoardPos();
         
         //Asigna el valor de la fila.
-        switch (_boardPos.charAt(0))
+        switch (inputPos.charAt(0))
         {
             case 'A':
             case 'a':   rowIndex=0;
@@ -61,7 +63,7 @@ public class Board
         }
         
         //Asigna el valor de la columna.
-        switch (_boardPos.charAt(1))
+        switch (inputPos.charAt(1))
         {
             case '1':   columnIndex=0;
                 break;
@@ -73,7 +75,10 @@ public class Board
                 break;
         }
         
-        boardPos[rowIndex][columnIndex] = _value;    //Inicializa la posición del array con el valor de la casilla.
+        System.out.println("Introduce un valor para la casilla: ");
+        posValue = Input.getInt();
+        
+        boardPos[rowIndex][columnIndex] = posValue;    //Inicializa la posición del array con el valor de la casilla.
     }
     
     public static void drawBoard()
