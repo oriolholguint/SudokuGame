@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 public class Input 
 {
 	
+    final static int TIPO_SUDOKU = 4;
+    
     public static char getChar()
     {
         String preLetter;
@@ -34,9 +36,16 @@ public class Input
     {
         int number;
 
-        Scanner sc = new Scanner(System.in);
-        number = sc.nextInt();
-
+        do
+        {
+            Scanner sc = new Scanner(System.in);
+            number = sc.nextInt();
+            if (number < 1 || number > TIPO_SUDOKU)
+            {
+                System.out.println("Introduce un valor correcto");
+            }
+        }while(number < 1 || number > TIPO_SUDOKU);
+        
         return number;
     }
 
