@@ -1,5 +1,5 @@
 /*
-        A B  C D    
+         1 2   3 4    
       +----+-----+
    A | 5 8 | 1 4 |
    B | 5 8 | 8 7 |
@@ -8,7 +8,7 @@
    D | 6 8 | 9 7 |
       +----+-----+
     
-        A B  C D
+        1 2  3 4
       +----+-----+
    A | ·  · | ·  · |
    B | ·  · | ·  · |
@@ -25,22 +25,26 @@ package sudokugame;
  */
 public class Board 
 {
+    final static int BOARD_HEIGHT = 4;  //Ancho del tablero.
+    final static int BOARD_WIDTH = 4;   //Alto del tablero.
+    
     /*Array contenedor del tablero de juego. Primera dimension para las filas. Segunda dimensión para las columnas.
     Valor para el número escrito en la casilla.*/
     static int boardPos [][] = new int [4][4];  
     
     /**
      * Da valor numérico a una posición del tablero escogida por el usuario.
-     * @param _positionAndValue Posición y valor de la posición con el formato (AB1) 
+     * @param _boardPos Posición de la casilla en formato (A1) 
+     * @param _value Valor de la casilla.
      */
-    public static void setBoardPosValue(String _positionAndValue)
+    public static void setBoardPosValue(String _boardPos, int _value)
     {
         int rowIndex=0; //Identificador de fila.
         int columnIndex=0; //Identificador de columna.
         int value;  //Valor numérico de la casilla.
         
         //Asigna el valor de la fila.
-        switch (_positionAndValue.charAt(0))
+        switch (_boardPos.charAt(0))
         {
             case 'A':
             case 'a':   rowIndex=0;
@@ -57,7 +61,7 @@ public class Board
         }
         
         //Asigna el valor de la columna.
-        switch (_positionAndValue.charAt(1))
+        switch (_boardPos.charAt(1))
         {
             case 'A':
             case 'a':   columnIndex=0;
@@ -73,36 +77,52 @@ public class Board
                 break;
         }
         
-        //Asigna el valor de la casilla.
-        value=_positionAndValue.charAt(2);
-        
-        boardPos[rowIndex][columnIndex] = value;    //Inicializa la posición del array con el valor de la casilla.
+        boardPos[rowIndex][columnIndex] = _value;    //Inicializa la posición del array con el valor de la casilla.
     }
     
     public static void drawBoard()
     {
+        char rowLetter=' '; //Letra de las filas.
         
-        System.out.println("   A B  C D  " );
-        System.out.println(" +----+-----+");
+        System.out.println("   1   2   3   4  " );  //Imprime la parte superior del tablero.
+        System.out.println(" +-------+-------+");
         
-        for (int i = 0; i<boardPos[i].length-1;i++)
+       
+        for (int i = 0; i< BOARD_HEIGHT; i++) //Controla los saltos de fila.
         {
-            System.out.print("A  ");
-            for (int j = 0; j<boardPos[j].length-1;j++ )
+            switch(i)
+            {
+                 case 0: rowLetter='A';
+                    break;
+                 case 1: rowLetter='B';
+                    break;
+                 case 2: rowLetter='C';
+                    break;
+                 case 3: rowLetter='D';
+                    break;
+            }
+             
+            System.out.print(rowLetter);
+            
+            for (int j = 0; j < BOARD_WIDTH; j++ )  //Dibuja las filas.
             {
                 if (boardPos[i][j]==0)
                 {
-                    System.out.print("|  ·  ");
+                    System.out.print("| · ");
                 }
                 else
                 {
-                    System.out.print("|  " + boardPos[i][j] + "  ");
+                    System.out.print("| " + boardPos[i][j] + " ");
                 }
-                
             }
-            System.out.println("  |");
+            System.out.println("|");
+            
+            if (i==((BOARD_HEIGHT/2)-1))   //Si se ha dibujado la mitad del tablero.
+            {
+                System.out.println(" +-------+-------+");   //Dibuja una separación en medio del tablero.
+            }
         }
         
-         System.out.println(" +----+-----+");
+         System.out.println(" +-------+-------+");  //Dibuja linea de fin del tablero.
     }
 }

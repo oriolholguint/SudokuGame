@@ -14,7 +14,7 @@ public class SudokuGame
     {
         
         //Prueba de impresión del tablero.
-        Board.setBoardPosValue("aa1");
+        Board.setBoardPosValue("aa",1);
         Board.drawBoard();
 
 
