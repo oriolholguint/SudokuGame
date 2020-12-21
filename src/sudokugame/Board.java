@@ -133,7 +133,7 @@ public class Board
      * @param _rowPos
      * @return isSet (True si el número se encuentra en la fila seleccionada.)
      */
-    public static boolean getValueRow(int _value, int _rowPos)
+    public static boolean isValueInRow(int _value, int _rowPos)
     {
         boolean isSet=false;
         
@@ -153,7 +153,7 @@ public class Board
      * @param _colPos
      * @return isSet (True si el número se encuenta en la columna seleccionada)
      */
-    public static boolean getValueColumn(int _value, int _colPos)
+    public static boolean isValueInColumn(int _value, int _colPos)
     {
         boolean isSet=false;
         
@@ -167,11 +167,12 @@ public class Board
         return isSet;
     }
     
-    public static void generateRandomValue()
+    public static void generateRandomBoard()
     {
         int value;  //Valor a escribir en la casilla.
         int col;    //Índice de la columna.
         int row;    //Índice de la fila.
+        int resetCounter=0; //Contador de reinicio en caso de que el bucle no se pueda llenar.
         
         do{ //Genera un número aleatorio para el índice de la fila y la columna.
             row = (int) (Math.random() * 4);
@@ -179,11 +180,32 @@ public class Board
             
         }while(boardPos[row][col]!=0);  //Mientras no haya ningún valor ya asignado a esa casilla.
         
+        
         do{ //Genera un valor para escribir en la casilla.
+            
             value = (int)(Math.random() * 4 + 1);
-        }while(getValueRow(value, row) || getValueColumn(value, col));  //Mientras en la fila o la columna no se encuentre el mismo valor.
+            resetCounter++;
+            if (resetCounter==10)
+            {
+                resetBoard();   //Resetea el tablero.
+            }
+        }while(isValueInRow(value, row) || isValueInColumn(value, col));  //Mientras en la fila o la columna no se encuentre el mismo valor.
         
         boardPos[row][col]=value;   //Asigna el valor a la casilla.
+    }
+    
+    /**
+     * Resetea el tablero.
+     */
+    public static void resetBoard()
+    {
+        for (int i = 0; i<BOARD_HEIGHT;i++)
+        {
+            for (int j = 0; j <BOARD_WIDTH;j++)
+            {
+                boardPos[i][j]=0;   //Resetea la casilla actual.
+            }
+        }
     }
 }
 
