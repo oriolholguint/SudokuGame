@@ -74,7 +74,7 @@ public class Board
     /**
      * Dibuja el tablero de juego.
      */
-    public static void drawBoard()
+    public static void drawFullBoard()
     {
         char rowLetter=' '; //Letra de las filas.
         

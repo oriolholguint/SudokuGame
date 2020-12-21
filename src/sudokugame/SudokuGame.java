@@ -21,7 +21,7 @@ public class SudokuGame
 
             if (Board.isFull()) //Si el tablero ya está lleno.
             {
-                Board.drawBoard();  //Dibuja el tablero.
+                Board.drawFullBoard();  //Dibuja el tablero.
             }
         }while(!GameManager.getIsGameFinish());
     }
