@@ -148,7 +148,7 @@ public class Board
     }
     
     /**
-     * Busca un número concreto en una fila del tablero y retorna si aparece.
+     * Busca un número concreto en una fila del tablero y retorna si aparece repetido.
      * @param _value
      * @param _colPos
      * @return isSet (True si el número se encuenta en la columna seleccionada)
@@ -167,6 +167,30 @@ public class Board
         return isSet;
     }
     
+    /**
+     * Busca un número en un cuadrante y retorna si aparece repetido.
+     * @param _value
+     * @param _rowPos
+     * @param _colPos
+     * @return isSet (True si el número ya se encuentra en el cuadrante seleccionado)
+     */
+    public static boolean isValueInSquare(int _value, int _rowPos, int _colPos)
+    {
+        boolean isSet = false;
+        
+        if (_rowPos!=0 && _colPos!=3)
+        {
+            if (boardPos[_rowPos-1][_colPos+1] == _value)
+            {
+                isSet=true;
+                System.out.println("itsme!");
+            }
+        }
+        
+        
+        return isSet;
+    }
+    
     public static void generateRandomBoard()
     {
         int value;  //Valor a escribir en la casilla.
@@ -182,12 +206,14 @@ public class Board
         
         
         do{ //Genera un valor para escribir en la casilla.
-            
             value = (int)(Math.random() * 4 + 1);
-            resetCounter++;
-            if (resetCounter==10)
+            resetCounter++; //Suma una pasada para el contador de reseteo.
+            
+            isValueInSquare(value, row, col);   //Comprueba si el valor está en el cuadrante.
+            
+            if (resetCounter==10)   //Si el contador de reseteo tiene un número elevado.
             {
-                resetBoard();   //Resetea el tablero.
+                resetBoard();   //Resetea el tablero para volver a empezar el proceso.
             }
         }while(isValueInRow(value, row) || isValueInColumn(value, col));  //Mientras en la fila o la columna no se encuentre el mismo valor.
         
@@ -195,13 +221,13 @@ public class Board
     }
     
     /**
-     * Resetea el tablero.
+     * Resetea el tablero por completo.
      */
     public static void resetBoard()
     {
-        for (int i = 0; i<BOARD_HEIGHT;i++)
+        for (int i = 0; i<BOARD_HEIGHT;i++) //Recorre las filas.
         {
-            for (int j = 0; j <BOARD_WIDTH;j++)
+            for (int j = 0; j <BOARD_WIDTH;j++) //Recorre las columnas.
             {
                 boardPos[i][j]=0;   //Resetea la casilla actual.
             }
