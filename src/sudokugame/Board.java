@@ -1,26 +1,16 @@
 /*
-         1 2   3 4    
-      +----+-----+
-   A | 5 8 | 1 4 |
-   B | 5 8 | 8 7 |
-      +----+-----+
-   C | 6 8 | 5 2 |
-   D | 6 8 | 9 7 |
-      +----+-----+
-    
-        1 2  3 4
-      +----+-----+
-   A | ·  · | ·  · |
-   B | ·  · | ·  · |
-      +----+-----+
-   C | ·  · | ·  · |
-   D | ·  · | ·  · |
-      +----+-----+
+         1 2   3 4            1 2  3 4
+      +----+-----+         +----+-----+
+   A | 5 8 | 1 4 |      A | ·  · | ·  · |
+   B | 5 8 | 8 7 |      B | ·  · | ·  · |
+      +----+-----+         +----+-----+ 
+   C | 6 8 | 5 2 |      C | ·  · | ·  · |
+   D | 6 8 | 9 7 |      D | ·  · | ·  · |
+      +----+-----+         +----+-----+     //Simulación gráfica del tablero utilizado para el Sudoku.
     */
-
 package sudokugame;
 /**
- * 
+ * Tablero de juego. Simula un tablero de Sudoku real.
  * @author Alex Guirao López <aguiraol2021@cepnet.net>
  */
 public class Board 
@@ -37,13 +27,13 @@ public class Board
      */
     public static void setBoardPosValue()
     {
-        String inputPos;
+        String inputPos;  //Posición del tablero.
         int rowIndex=0; //Identificador de fila.
         int columnIndex=0; //Identificador de columna.
         int posValue;  //Valor numérico de la casilla.
         
         System.out.println("Introduce una posición del tablero: ");
-        inputPos = Input.getBoardPos();
+        inputPos = Input.getBoardPos(); //El usuario asigna la posición del tablero.
         
         //Asigna el valor de la fila.
         switch (inputPos.charAt(0))
@@ -76,11 +66,14 @@ public class Board
         }
         
         System.out.println("Introduce un valor para la casilla: ");
-        posValue = Input.getInt();
+        posValue = Input.getInt();  //El usuario asigna un valor para la posición del tablero.
         
         boardPos[rowIndex][columnIndex] = posValue;    //Inicializa la posición del array con el valor de la casilla.
     }
     
+    /**
+     * Dibuja el tablero de juego.
+     */
     public static void drawBoard()
     {
         char rowLetter=' '; //Letra de las filas.
@@ -176,48 +169,89 @@ public class Board
      */
     public static boolean isValueInSquare(int _value, int _rowPos, int _colPos)
     {
-        boolean isSet = false;
+        boolean isSet = false;  //True si el número está repetido dentro del mismo cuadrante.
         
-        if (_rowPos!=0 && _colPos!=3)
-        {
-            if (boardPos[_rowPos-1][_colPos+1] == _value)
+        
+            if (_rowPos==0 && _colPos==0 && boardPos[1][1]!=0)  //Compara la casilla con su diagonal (si tiene valor).
             {
-                isSet=true;
-                System.out.println("itsme!");
+                if (boardPos[1][1]==_value) //Si el valor de la diagonal coincide con el de la casilla actual
+                {
+                    isSet=true; //El número se repite dentro del cuadrante (Sudoku mal formado).
+                    }
+            }else if (_rowPos==1&&_colPos==1 && boardPos[0][0] != 0) 
+            {
+                if (boardPos[0][0]==_value)
+                {
+                    isSet=true;
+                }
+            }else if (_rowPos==0&&_colPos==1 && boardPos[1][0]!=0)
+            {
+                if (boardPos[1][0]==_value)
+                {
+                    isSet=true;
+                }
+            }else if (_rowPos==1&&_colPos==0 && boardPos[0][1]!=0)
+            {
+                if (boardPos[0][1]==_value)
+                {
+                    isSet=true;
+                }
             }
-        }
-        
-        
         return isSet;
     }
     
+    /**
+     * Genera un tablero con unos valores aleatorios siguiendo la lógica del Sudoku.
+     */
     public static void generateRandomBoard()
     {
         int value;  //Valor a escribir en la casilla.
         int col;    //Índice de la columna.
         int row;    //Índice de la fila.
-        int resetCounter=0; //Contador de reinicio en caso de que el bucle no se pueda llenar.
+        int resetCounter=0; //Contador de reinicio en caso de que el tablero se haya vuelto imposible de resolver.
         
         do{ //Genera un número aleatorio para el índice de la fila y la columna.
             row = (int) (Math.random() * 4);
             col = (int) (Math.random() * 4);
-            
         }while(boardPos[row][col]!=0);  //Mientras no haya ningún valor ya asignado a esa casilla.
         
-        
         do{ //Genera un valor para escribir en la casilla.
-            value = (int)(Math.random() * 4 + 1);
-            resetCounter++; //Suma una pasada para el contador de reseteo.
+            value = (int)(Math.random() * 4 + 1);   //Genera un número aleatorio para el valor de la casilla actual.
+            resetCounter++; //Suma uno para el contador de un posible reseteo.
             
-            isValueInSquare(value, row, col);   //Comprueba si el valor está en el cuadrante.
-            
-            if (resetCounter==10)   //Si el contador de reseteo tiene un número elevado.
+            if (isValueInSquare(value, row, col)) //Si el valor está repetido dentro del cuadrante...
             {
-                resetBoard();   //Resetea el tablero para volver a empezar el proceso.
+                resetBoard();   //...resetea el tablero mal formado para volver a empezar el proceso.
+            }   
+            
+            if (resetCounter==10)   //Si el contador de reseteo tiene un número elevado...
+            {
+                resetBoard();   //...resetea el tablero para volver a empezar el proceso.
             }
         }while(isValueInRow(value, row) || isValueInColumn(value, col));  //Mientras en la fila o la columna no se encuentre el mismo valor.
         
         boardPos[row][col]=value;   //Asigna el valor a la casilla.
+    }
+    
+    /**
+     * Comprueba si el tablero se ha llenado con valores en todas sus casillas.
+     * @return isFull (True) si el tablero tiene todas sus casillas con algún valor.
+     */
+    public static boolean isFull()
+    {
+        boolean isFull=true;  //El tablero está lleno por completo.
+        
+        for (int i = 0; i<BOARD_HEIGHT;i++) //Recorre las filas.
+        {
+            for (int j = 0; j <BOARD_WIDTH;j++) //Recorre las columnas.
+            {
+                if (boardPos[i][j]==0)  //Si la casilla no tiene valor.
+                {
+                    isFull=false;   //Cambia a false el boolean de retorno.
+                }
+            }
+        }
+        return isFull;
     }
     
     /**

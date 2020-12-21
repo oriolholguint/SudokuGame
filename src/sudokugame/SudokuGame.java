@@ -17,9 +17,12 @@ public class SudokuGame
         
         //Prueba para generar tablero aleatorio
         do{
-        Board.generateRandomBoard();
-        Board.drawBoard();
-        }while(!GameManager.getIsGameFinish());
+            Board.generateRandomBoard();
 
+            if (Board.isFull()) //Si el tablero ya está lleno.
+            {
+                Board.drawBoard();  //Dibuja el tablero.
+            }
+        }while(!GameManager.getIsGameFinish());
     }
 }
