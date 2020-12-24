@@ -79,13 +79,23 @@ public class Board
      */
     public static void setUserHintValues()
     {
-        int hintValueNum = (int) (Math.random()*7+2);
+        int hintValueNum=1;   //Número de casillas que son reveladas al inicio de la partida.
+        
+        switch(GameManager.getGameLevel())
+        {
+            case 1: hintValueNum = 9;
+                break;
+            case 2: hintValueNum = 6;
+                break;
+            case 3: hintValueNum = 3;
+                break;
+        }
         
         int row;    //Número de fila.
         int col;    //Número de columna.
         boolean isSet;
         
-        for (int i = 0; i <= hintValueNum; i++)
+        for (int i = 0; i < hintValueNum; i++)
         {
             isSet=false;
             do{
@@ -98,7 +108,7 @@ public class Board
                     playerBoardPos[row][col] = boardPos[row][col];  
                     isSet=true;
                 }
-            }while (isSet=false);
+            }while (isSet==false);
         }
     }
     
