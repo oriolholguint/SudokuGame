@@ -20,12 +20,15 @@ public class Board
     
     /*Array contenedor del tablero de juego. Primera dimension para las filas. Segunda dimensión para las columnas.
     Valor para el número escrito en la casilla.*/
-    static int boardPos [][] = new int [4][4];  
+    static int boardPos [][] = new int [BOARD_HEIGHT][BOARD_WIDTH];  
+    
+    //Array contenedor del tablero de juego con los valores que el usuario rellena.
+    static int playerBoardPos [][] = new int [BOARD_HEIGHT] [BOARD_WIDTH];
     
     /**
      * Da valor numérico a una posición del tablero escogida por el usuario.
      */
-    public static void setBoardPosValue()
+    public static void setPlayerBoardPosValue()
     {
         String inputPos;  //Posición del tablero.
         int rowIndex=0; //Identificador de fila.
@@ -68,11 +71,88 @@ public class Board
         System.out.println("Introduce un valor para la casilla: ");
         posValue = Input.getInt();  //El usuario asigna un valor para la posición del tablero.
         
-        boardPos[rowIndex][columnIndex] = posValue;    //Inicializa la posición del array con el valor de la casilla.
+        playerBoardPos[rowIndex][columnIndex] = posValue;    //Inicializa la posición del array con el valor de la casilla.
     }
     
     /**
-     * Dibuja el tablero de juego.
+     * Inicializa valores aleatorios del tablero del jugador para que pueda empezar a jugar con alguna referencia.
+     */
+    public static void setUserHintValues()
+    {
+        int hintValueNum = (int) (Math.random()*7+2);
+        
+        int row;    //Número de fila.
+        int col;    //Número de columna.
+        boolean isSet;
+        
+        for (int i = 0; i <= hintValueNum; i++)
+        {
+            isSet=false;
+            do{
+                row = (int) (Math.random() * 4);
+                col = (int) (Math.random() * 4);
+                
+                if (playerBoardPos[row][col]==0)
+                {
+                    //Inicializa algunas posiciones aleatorias para las pistas iniciales del tablero del jugador.
+                    playerBoardPos[row][col] = boardPos[row][col];  
+                    isSet=true;
+                }
+            }while (isSet=false);
+        }
+    }
+    
+    /**
+     * Dibuja el tablero que va completando el jugador.
+     */
+    public static void drawPlayerBoard()
+    {
+        char rowLetter=' '; //Letra de las filas.
+        
+        System.out.println("   1   2   3   4  " );  //Imprime la parte superior del tablero.
+        System.out.println(" +-------+-------+");
+        
+       
+        for (int i = 0; i< BOARD_HEIGHT; i++) //Controla los saltos de fila.
+        {
+            switch(i)
+            {
+                 case 0: rowLetter='A';
+                    break;
+                 case 1: rowLetter='B';
+                    break;
+                 case 2: rowLetter='C';
+                    break;
+                 case 3: rowLetter='D';
+                    break;
+            }
+             
+            System.out.print(rowLetter);
+            
+            for (int j = 0; j < BOARD_WIDTH; j++ )  //Dibuja las filas.
+            {
+                if (playerBoardPos[i][j]==0)
+                {
+                    System.out.print("| · ");
+                }
+                else
+                {
+                    System.out.print("| " + playerBoardPos[i][j] + " ");
+                }
+            }
+            System.out.println("|");
+            
+            if (i==((BOARD_HEIGHT/2)-1))   //Si se ha dibujado la mitad del tablero.
+            {
+                System.out.println(" +-------+-------+");   //Dibuja una separación en medio del tablero.
+            }
+        }
+        
+         System.out.println(" +-------+-------+");  //Dibuja linea de fin del tablero.
+    }
+    
+    /**
+     * Dibuja el tablero al completo.
      */
     public static void drawFullBoard()
     {
