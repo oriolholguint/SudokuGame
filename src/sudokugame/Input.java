@@ -68,12 +68,17 @@ public class Input
         {
             Scanner sc = new Scanner(System.in);
             boardPos = sc.nextLine();    
-            if (!(boardPos.matches(patternBoardPos)))
+            if ("SOLUCION".equals(boardPos) || "solucion".equals(boardPos))
+            {
+                System.out.println("Veo que no eres capáz de lograrlo.. Prueba de nuevo!");
+            }
+            else if (!(boardPos.matches(patternBoardPos)))
             {
                 System.out.println("Esa posición no existe, introduce una correcta");
             }
+            
         }
-        while(!(boardPos.matches(patternBoardPos))); // Si no cumple el pattern no sale
+        while(!(boardPos.matches(patternBoardPos)) || "SOLUCION".equals(boardPos) || "solucion".equals(boardPos)); // Si no cumple el pattern o el comando "SOLUCION" no sale
 
         return boardPos;
     }
