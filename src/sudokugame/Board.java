@@ -357,5 +357,85 @@ public class Board
             }
         }
     }
+    
+    public static boolean isFullUserBoard()
+    {
+        boolean isFull=true;  //El tablero está lleno por completo.
+        
+        for (int i = 0; i<BOARD_HEIGHT;i++) //Recorre las filas.
+        {
+            for (int j = 0; j <BOARD_WIDTH;j++) //Recorre las columnas.
+            {
+                if (playerBoardPos[i][j]==0)  //Si la casilla no tiene valor.
+                {
+                    isFull=false;   //Cambia a false el boolean de retorno.
+                }
+            }
+        }
+        return isFull;
+    }
+    
+    public static boolean isValueInUserRow()
+    {
+        boolean isSet=false;
+        int aux; // Guarda la suma de la fila.
+        
+        for (int i = 0; i < BOARD_HEIGHT; i++)
+        {
+            aux = 0; // Lo inicializamos para cada fila.
+            for (int j = 0; j < BOARD_WIDTH; j++)
+            {
+                aux = aux + playerBoardPos[i][j]; // Sumamos el valor de la casilla al aux.
+            }
+            if (!(aux == 10)) // Si el aux no tiene un 10 significa que hay un numero repetido.
+            {
+              isSet=true;  // Activamos el boolean de numero repetido.
+            }
+        }
+        return isSet;
+    }
+       
+    public static boolean isValueInUserColumn()
+    {
+        boolean isSet=false;
+        int aux; // Guarda la suma de la columna.
+        
+        for (int i = 0; i < BOARD_WIDTH; i++)
+        {
+            aux = 0; // Lo inicializamos para cada columna.
+            for (int j = 0; j < BOARD_HEIGHT; j++)
+            {
+                aux = aux + playerBoardPos[j][i]; // Sumamos el valor de la casilla al aux.
+            }
+            if (!(aux == 10)) // Si el aux no tiene un 10 significa que hay un numero repetido.
+            {
+              isSet=true;  // Activamos el boolean de numero repetido.
+            }
+        }
+        return isSet;
+    }
+    
+    public static void checkFullBoard()
+    {
+        boolean isFull;
+        boolean isWrongColumn;
+        boolean isWrongRow;
+        
+        isFull = Board.isFullUserBoard(); // Comprueba que este completo.
+        
+        if (isFull) // Si esta completo entra aqui.
+        {
+            isWrongColumn = Board.isValueInUserColumn(); // Comprueba las columnas.
+            isWrongRow = Board.isValueInUserRow(); // Comprueba las filas.
+            if (isWrongColumn || isWrongRow) // Si hay un error entra aqui.
+            {
+                System.out.println("Vaya, te has equivocado en algún número...");
+            }
+            else // Si no hay error entra aqui.
+            {
+                System.out.println("Muy bien lo has logrado!");
+                GameManager.setGameFinish(true);
+            }
+        }
+    }
 }
-

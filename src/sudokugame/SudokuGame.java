@@ -29,6 +29,7 @@ public class SudokuGame
         do{
             Board.setPlayerBoardPosValue(); //El jugador introduce un valor para una posición.
             Board.drawPlayerBoard();    //Imprime el tablero de juego.
+            Board.checkFullBoard(); //Comprueba el tablero del usuario;
         }while(!(GameManager.getIsGameFinish()));
     }
 }
