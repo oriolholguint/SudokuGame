@@ -104,7 +104,7 @@ public class Board
         
         int row;    //Número de fila.
         int col;    //Número de columna.
-        boolean isSet;
+        boolean isSet;  //Define si el valor de la casilla ya ha sido inicializado anteriormente.
         
         for (int i = 0; i < hintValueNum; i++)
         {
@@ -370,7 +370,7 @@ public class Board
         }
     }
     
-    public static boolean isFullUserBoard()
+    public static boolean isFullPlayerBoard()
     {
         boolean isFull=true;  //El tablero está lleno por completo.
         
@@ -433,7 +433,7 @@ public class Board
         boolean isWrongColumn;
         boolean isWrongRow;
         
-        isFull = Board.isFullUserBoard(); // Comprueba que este completo.
+        isFull = Board.isFullPlayerBoard(); // Comprueba que este completo.
         
         if (isFull) // Si esta completo entra aqui.
         {
