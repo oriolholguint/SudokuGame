@@ -25,53 +25,64 @@ public class Board
     //Array contenedor del tablero de juego con los valores que el usuario rellena.
     static int playerBoardPos [][] = new int [BOARD_HEIGHT] [BOARD_WIDTH];
     
+    //Indica si cada una de las posiciones del tablero son valores iniciales fijos (que el usuario no puede modificar).
+    static boolean isDefaultPos [][] = new boolean [BOARD_HEIGHT] [BOARD_WIDTH];
+    
     /**
      * Da valor numérico a una posición del tablero escogida por el usuario.
      */
     public static void setPlayerBoardPosValue()
     {
         String inputPos;  //Posición del tablero.
-        int rowIndex=0; //Identificador de fila.
-        int columnIndex=0; //Identificador de columna.
+        int row=0; //Identificador de fila.
+        int col=0; //Identificador de columna.
         int posValue;  //Valor numérico de la casilla.
         
-        System.out.println("Introduce una posición del tablero: ");
-        inputPos = Input.getBoardPos(); //El usuario asigna la posición del tablero.
-        
-        //Asigna el valor de la fila.
-        switch (inputPos.charAt(0))
-        {
-            case 'A':
-            case 'a':   rowIndex=0;
-                break;
-            case 'B':
-            case 'b':   rowIndex=1;
-                break;
-            case 'C':
-            case 'c':   rowIndex=2;
-                break;
-            case 'D':
-            case 'd':   rowIndex=3;
-                break;
-        }
-        
-        //Asigna el valor de la columna.
-        switch (inputPos.charAt(1))
-        {
-            case '1':   columnIndex=0;
-                break;
-            case '2':   columnIndex=1;
-                break;
-            case '3':   columnIndex=2;
-                break;
-            case '4':   columnIndex=3;
-                break;
-        }
+        System.out.print("Introduce una posición del tablero: ");
+        do{
+            inputPos = Input.getBoardPos(); //El usuario asigna la posición del tablero.
+
+            //Asigna el valor de la fila.
+            switch (inputPos.charAt(0))
+            {
+                case 'A':
+                case 'a':   row=0;
+                    break;
+                case 'B':
+                case 'b':   row=1;
+                    break;
+                case 'C':
+                case 'c':   row=2;
+                    break;
+                case 'D':
+                case 'd':   row=3;
+                    break;
+            }
+
+            //Asigna el valor de la columna.
+            switch (inputPos.charAt(1))
+            {
+                case '1':   col=0;
+                    break;
+                case '2':   col=1;
+                    break;
+                case '3':   col=2;
+                    break;
+                case '4':   col=3;
+                    break;
+            }
+            
+            if (isDefaultPos[row][col]==true)   //Si es una posición por defecto que el usuario no puede sobreescribir.
+            {
+                System.out.println("> Esta posición del sudoku es fija, no puedes modificarla.");
+                System.out.print("> Introduce otra posición: ");
+            }
+        }while(isDefaultPos[row][col]==true);
         
         System.out.println("Introduce un valor para la casilla: ");
         posValue = Input.getInt();  //El usuario asigna un valor para la posición del tablero.
         
-        playerBoardPos[rowIndex][columnIndex] = posValue;    //Inicializa la posición del array con el valor de la casilla.
+        playerBoardPos[row][col] = posValue;    //Inicializa la posición del array con el valor de la casilla.
     }
     
     /**
@@ -106,6 +117,7 @@ public class Board
                 {
                     //Inicializa algunas posiciones aleatorias para las pistas iniciales del tablero del jugador.
                     playerBoardPos[row][col] = boardPos[row][col];  
+                    isDefaultPos[row][col]=true;
                     isSet=true;
                 }
             }while (isSet==false);
