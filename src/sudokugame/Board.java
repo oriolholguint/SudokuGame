@@ -370,6 +370,10 @@ public class Board
         }
     }
     
+    /**
+     * Comprueba si el tablero del jugador se ha llenado con valores en todas sus casillas.
+     * @return isFull (True) si el tablero tiene todas sus casillas con algún valor.
+     */
     public static boolean isFullPlayerBoard()
     {
         boolean isFull=true;  //El tablero está lleno por completo.
@@ -387,9 +391,13 @@ public class Board
         return isFull;
     }
     
-    public static boolean isValueInUserRow()
+    /**
+     * Comprueba si en las filas del tablero del jugador hay un error1.
+     * @return isWrong (True) si el tablero del jugador tiene una fila erronea.
+     */
+    public static boolean isWrongUserRow()
     {
-        boolean isSet=false;
+        boolean isWrong=false;
         int aux; // Guarda la suma de la fila.
         
         for (int i = 0; i < BOARD_HEIGHT; i++)
@@ -401,15 +409,19 @@ public class Board
             }
             if (!(aux == 10)) // Si el aux no tiene un 10 significa que hay un numero repetido.
             {
-              isSet=true;  // Activamos el boolean de numero repetido.
+              isWrong = true;  // Activamos el boolean de numero repetido.
             }
         }
-        return isSet;
+        return isWrong;
     }
        
-    public static boolean isValueInUserColumn()
+    /**
+     * Comprueba si en las columnas del tablero del jugador hay un error.
+     * @return isWrong (True) si el tablero del jugador tiene una columna erronea.
+     */
+    public static boolean isWrongUserColumn()
     {
-        boolean isSet=false;
+        boolean isWrong=false;
         int aux; // Guarda la suma de la columna.
         
         for (int i = 0; i < BOARD_WIDTH; i++)
@@ -421,25 +433,42 @@ public class Board
             }
             if (!(aux == 10)) // Si el aux no tiene un 10 significa que hay un numero repetido.
             {
-              isSet=true;  // Activamos el boolean de numero repetido.
+              isWrong = true;  // Activamos el boolean de numero repetido.
             }
         }
-        return isSet;
+        return isWrong;
+    }
+    
+    /**
+     * Comprueba si en el cuadrante del tablero del jugador es erroneo.
+     * @return isWrong (True) si el tablero del jugador tiene el cuadrante erroneo.
+     */
+    public static boolean isWrongUserSquare()
+    {
+        boolean isWrong = false;
+        int aux = 0;
+        
+        for (int i = 0; i < BOARD_WIDTH / 2; i++)
+        {
+            for (int j = 0; j < BOARD_HEIGHT / 2; j++)
+            {
+                aux = aux + playerBoardPos[i][j];
+            }
+        }
+        
+        if (!(aux == 10)) // Si el aux no tiene un 10 significa que hay un numero repetido.
+        {
+            isWrong = true;
+        }
+        
+        return isWrong;
     }
     
     public static void checkFullBoard()
-    {
-        boolean isFull;
-        boolean isWrongColumn;
-        boolean isWrongRow;
-        
-        isFull = Board.isFullPlayerBoard(); // Comprueba que este completo.
-        
-        if (isFull) // Si esta completo entra aqui.
+    {        
+        if (Board.isFullPlayerBoard()) // Si esta completo entra aqui.
         {
-            isWrongColumn = Board.isValueInUserColumn(); // Comprueba las columnas.
-            isWrongRow = Board.isValueInUserRow(); // Comprueba las filas.
-            if (isWrongColumn || isWrongRow) // Si hay un error entra aqui.
+            if (Board.isWrongUserColumn() || Board.isWrongUserRow() || isWrongUserSquare()) // Si hay error en columna o fila entra aqui.
             {
                 System.out.println("Vaya, te has equivocado en algún número...");
             }
