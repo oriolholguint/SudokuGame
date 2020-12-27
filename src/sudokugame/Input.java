@@ -1,7 +1,6 @@
 package sudokugame;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -9,7 +8,6 @@ import java.util.regex.Pattern;
  */
 public class Input 
 {
-	
     final static int TIPO_SUDOKU = 4;
     
     public static char getChar()
@@ -42,7 +40,8 @@ public class Input
             number = sc.nextInt();
             if (number < 1 || number > TIPO_SUDOKU)
             {
-                System.out.println("Introduce un valor correcto");
+                //System.out.println("Introduce un valor correcto");
+                System.err.println("Introduce un valor correcto (entre 1 y 4):");
             }
         }while(number < 1 || number > TIPO_SUDOKU);
         
@@ -74,7 +73,8 @@ public class Input
             }
             else if (!(boardPos.matches(patternBoardPos)))
             {
-                System.out.println("Esa posición no existe, introduce una correcta");
+                //System.out.println("Esa posición no existe, introduce una correcta");
+                System.err.println("Esa posición no existe, introduce una correcta:");
             }
             
         }
