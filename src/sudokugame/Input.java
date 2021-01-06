@@ -3,13 +3,17 @@ package sudokugame;
 import java.util.Scanner;
 
 /**
- *
+ * Contiene diferentes métodos para leer datos desde el teclado, en función del tipo de dato a leer.
  * @author (oriolholguint@gmail.com)
  */
 public class Input 
 {
     final static int TIPO_SUDOKU = 4;
     
+    /**
+     * Recoge y retorna un carácter introducido por consola.
+     * @return Un carácter recogido por la consola.
+     */
     public static char getChar()
     {
         String preLetter;
@@ -30,6 +34,10 @@ public class Input
         return letter;
     }
 
+    /**
+     * Recoge y retorna un número introducido por consola.
+     * @return Un número recogido por la consola.
+     */
     public static int getInt()
     {
         int number;
@@ -48,6 +56,10 @@ public class Input
         return number;
     }
 
+    /**
+     * Recoge una cadena de carácteres introducido por consola.
+     * @return Una cadena de carácteres recogida por la consola.
+     */
     public static String getString()
     {
         String word;
@@ -58,6 +70,10 @@ public class Input
         return word;            
     }
     
+    /**
+     * Recoge una posición del tablero formada por una letra y un número introducida por consola.
+     * @return Una posición del tablero introducida por la consola.
+     */
     public static String getBoardPos()
     {
         String boardPos;
