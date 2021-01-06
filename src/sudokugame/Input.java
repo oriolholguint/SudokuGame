@@ -85,16 +85,16 @@ public class Input
             boardPos = sc.nextLine();    
             if ("SOLUCION".equals(boardPos) || "solucion".equals(boardPos))
             {
-                System.out.println("Veo que no eres capáz de lograrlo.. Prueba de nuevo!");
+                System.out.println("Veo que no eres capáz de lograrlo.. Intentalo en otra partida!");
+                GameManager.setGameFinish(true);
             }
             else if (!(boardPos.matches(patternBoardPos)))
             {
                 //System.out.println("Esa posición no existe, introduce una correcta");
                 System.err.println("Esa posición no existe, introduce una correcta:");
             }
-            
         }
-        while(!(boardPos.matches(patternBoardPos)) || "SOLUCION".equals(boardPos) || "solucion".equals(boardPos)); // Si no cumple el pattern o el comando "SOLUCION" no sale
+        while((!boardPos.matches(patternBoardPos)) && "SOLUCION".equals(boardPos) && "solucion".equals(boardPos)); // Si no cumple el pattern o el comando "SOLUCION" no sale
 
         return boardPos;
     }
