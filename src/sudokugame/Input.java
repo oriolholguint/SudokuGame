@@ -1,5 +1,6 @@
 package sudokugame;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -35,24 +36,32 @@ public class Input
     }
 
     /**
-     * Recoge y retorna un número introducido por consola.
+     * Recoge y retorna un número introducido por consola. En el caso de introducir
+     * un tipo de dato no valido, el programa continuará por el try catch.
      * @return Un número recogido por la consola.
      */
     public static int getInt()
     {
-        int number;
+        int number = 0;
 
-        do
+        try
         {
-            Scanner sc = new Scanner(System.in);
-            number = sc.nextInt();
-            if (number < 1 || number > TIPO_SUDOKU)
+            do
             {
-                //System.out.println("Introduce un valor correcto");
-                System.err.println("Introduce un valor correcto (entre 1 y 4):");
-            }
-        }while(number < 1 || number > TIPO_SUDOKU);
-        
+                Scanner sc = new Scanner(System.in);
+                number = sc.nextInt();
+                if (number < 1 || number > TIPO_SUDOKU)
+                {
+                    //System.out.println("Introduce un valor correcto");
+                    System.err.println("Introduce un valor correcto (entre 1 y 4):");
+                }
+            }while(number < 1 || number > TIPO_SUDOKU);
+        }
+        catch (InputMismatchException ex)
+        {
+            System.err.println("Tipo de dato introducido no valido!");
+        }
+            
         return number;
     }
 
